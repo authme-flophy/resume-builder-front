@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
+.navbar {
+  /* background-color: #95D5B2; */
+  margin-bottom: 2rem;
+  background-color: #16171d ;
+  font-family: 'Secular One', sans-serif;
+  font-size: 1.5rem;
+}
+
+#resume-text {
+  font-size: 1.5rem;
+  color: #F1554C;
+}
+
+#builder-text {
+  font-size: 1.5rem;
+  color: white;
+}
+
+#login, #signup, #home {
+  color: #F1554C
+}
+
+.navbar-toggler {
+  color: #F1554C;
+}
