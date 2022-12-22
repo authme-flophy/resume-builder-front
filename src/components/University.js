@@ -21,7 +21,7 @@ function University() {
 
   return <div class= "container">
 
-<form>
+<form onSubmit={(e) => handleSubmit(e)}>
   <div class="form-group">
     <label for="school_name"> School Name</label>
     <input type="text" class="form-control" id="school_name" onChange={(e) =>
@@ -50,6 +50,7 @@ function University() {
               setFormData({ ...formData, end_year: e.target.value })
             } />
   </div>
+
 
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
