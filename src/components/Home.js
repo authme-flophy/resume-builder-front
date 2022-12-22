@@ -5,8 +5,8 @@ import "./Home.scss";
 
 function Home() {
   return (
-    <div class="container">
-      <div class="row align-items-start">
+    <div class="container-sm">
+      <div class="row">
         <div class="col">
           <h1 class=" call-text">Get the right job you deserve</h1>
           <Link to="/create-resume" class="btn btn-outline-danger custom">
