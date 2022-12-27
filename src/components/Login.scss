@@ -1,0 +1,13 @@
+#login_form {
+  max-width: 800px;
+}
+
+#username, #password {
+  background-color: #16171d;
+  color: #F1554C;
+  border: 1px solid #F1554C;
+}
+
+#username:focus, #password:focus {
+  border: 1px solid #F1554C;
+}

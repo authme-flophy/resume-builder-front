@@ -25,3 +25,22 @@
 .navbar-toggler {
   color: #F1554C;
 }
+
+#home {
+  text-align: left;
+}
+
+.material-icons {
+  color: #F1554C;
+  // background-color: #F1554C;
+}
+
+#toggler {
+  border: 1px solid #F1554C;
+}
+
+@media (max-width: 576px) { 
+  #login, #signup, #home, #resume-text, #builder-text {
+    font-size: 1.3rem;
+  }
+ }

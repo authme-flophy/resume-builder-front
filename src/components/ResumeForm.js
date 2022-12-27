@@ -18,11 +18,8 @@ function ResumeForm() {
   };
 
   return (
-    <div className="container-sm d-flex justify-content-center">
-      <form
-        className="row col-5 justify-content-center"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+    <div className="container-md text-center" id="resume_form">
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
           <h1>Personal Information</h1>
         </div>
@@ -68,7 +65,9 @@ function ResumeForm() {
           />
         </div>
         <div className="mb-3">
-          <button className="btn btn-primary">SUBMIT</button>
+          <button className="btn btn-primary" id="submit_button">
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>

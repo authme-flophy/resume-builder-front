@@ -5,15 +5,15 @@ import "./Home.scss";
 
 function Home() {
   return (
-    <div class="container-sm">
-      <div class="row">
-        <div class="col">
-          <h1 class=" call-text">Get the right job you deserve</h1>
-          <Link to="/create-resume" class="btn btn-outline-danger custom">
+    <div className="container-sm justify-content-center">
+      <div className="row">
+        <div className="col-sm-6 text-section">
+          <h1 className=" call-text">Get the right job you deserve</h1>
+          <Link to="/create-resume" className="btn btn-outline-danger custom">
             CREATE RESUME NOW
           </Link>
         </div>
-        <div class="col call-image">
+        <div className="col-sm-6">
           <img src={logo} alt="" />
         </div>
       </div>
