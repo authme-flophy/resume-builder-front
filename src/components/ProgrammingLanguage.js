@@ -27,7 +27,7 @@ function ProgrammingLanguage() {
         </div>
         <div className="mb-3">
           <label for="name" className="form-label">
-             Name
+             NAME
           </label>
           <input
             type="text"
