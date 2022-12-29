@@ -12,9 +12,6 @@ function ResumeForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    e.target.first_name.value = "";
-    e.target.second_name.value = "";
-    e.target.email.value = "";
   };
 
   return (

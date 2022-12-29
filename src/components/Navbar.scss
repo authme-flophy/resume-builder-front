@@ -18,7 +18,7 @@
   color: white;
 }
 
-#login, #signup, #home {
+#login, #signup, #home, #profile, #logout {
   color: #F1554C
 }
 
@@ -37,6 +37,20 @@
 
 #toggler {
   border: 1px solid #F1554C;
+
+}
+
+#profile {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#nav-image {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
 }
 
 @media (max-width: 576px) { 

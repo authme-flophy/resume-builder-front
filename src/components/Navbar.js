@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 import "./Navbar.scss";
 
-function Navbar() {
+function Navbar({ user, setUser }) {
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser(null);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid container-md">
@@ -20,7 +26,7 @@ function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <i class="material-icons">dehaze</i>
+          <i className="material-icons">dehaze</i>
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -31,28 +37,60 @@ function Navbar() {
             </li>
           </ul>
           <div className="d-flex">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link
-                  id="login"
-                  className="nav-link"
-                  aria-current="page"
-                  to="/login"
-                >
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  id="signup"
-                  className="nav-link"
-                  aria-current="page"
-                  to="/register"
-                >
-                  SignUp
-                </Link>
-              </li>
-            </ul>
+            {user ? (
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <a
+                    id="logout"
+                    className="nav-link"
+                    aria-current="page"
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => handleLogout()}
+                  >
+                    Logout
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    id="profile"
+                    className="nav-link"
+                    aria-current="page"
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => handleLogout()}
+                  >
+                    <img
+                      id="nav-image"
+                      src={user.image_url}
+                      alt="profile picture"
+                    />
+                    {user.username}
+                  </a>
+                </li>
+              </ul>
+            ) : (
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <Link
+                    id="login"
+                    className="nav-link"
+                    aria-current="page"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    id="signup"
+                    className="nav-link"
+                    aria-current="page"
+                    to="/register"
+                  >
+                    SignUp
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </div>

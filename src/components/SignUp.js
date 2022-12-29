@@ -2,22 +2,31 @@ import React, { useState } from "react";
 import "./SignUp.scss";
 
 function SignUp() {
-  const [formData, setFormData] = useState({
-    first_name: "",
-    second_name: "",
-    email: "",
-    password: "",
-    image: "",
-  });
+  const [first_name, setFirstName] = useState();
+  const [second_name, setSecondName] = useState();
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(formData);
-    e.target.first_name.value = "";
-    e.target.second_name.value = "";
-    e.target.username.value = "";
-    e.target.email.value = "";
-    e.target.password.value = "";
+
+    const formData = new FormData();
+
+    formData.append("first_name", first_name);
+    formData.append("second_name", second_name);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", e.target.image.files[0]);
+
+    fetch("http://localhost:4000/register", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => console.log(res))
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
   return (
     <div className="container-md text-center" id="signup_form">
@@ -30,9 +39,7 @@ function SignUp() {
             type="text"
             className="form-control"
             id="first_name"
-            onChange={(e) =>
-              setFormData({ ...formData, first_name: e.target.value })
-            }
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -43,9 +50,7 @@ function SignUp() {
             type="text"
             className="form-control"
             id="second_name"
-            onChange={(e) =>
-              setFormData({ ...formData, second_name: e.target.value })
-            }
+            onChange={(e) => setSecondName(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -56,9 +61,7 @@ function SignUp() {
             type="text"
             className="form-control"
             id="username"
-            onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
-            }
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -70,23 +73,14 @@ function SignUp() {
             className="form-control"
             id="email"
             aria-describedby="emailHelp"
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-3">
           <label for="image" class="form-label">
             Default file input example
           </label>
-          <input
-            className="form-control"
-            type="file"
-            id="image"
-            onChange={(e) =>
-              setFormData({ ...formData, image: e.target.files[0] })
-            }
-          />
+          <input className="form-control" type="file" id="image" />
         </div>
         <div className="mb-3">
           <label for="password" className="form-label">
@@ -96,9 +90,7 @@ function SignUp() {
             type="password"
             className="form-control"
             id="password"
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button id="submit_button" type="submit" className="btn btn-primary">

@@ -1,17 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Login.scss";
 
-function Login() {
+function Login({ user, setUser }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(formData);
-    e.target.username.value = "";
-    e.target.password.value = "";
+
+    axios
+      .post("http://localhost:4000/login", formData)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
