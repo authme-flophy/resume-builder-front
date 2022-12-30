@@ -9,7 +9,11 @@ function Home() {
       <div className="row">
         <div className="col-sm-6 text-section">
           <h1 className=" call-text">Get the right job you deserve</h1>
-          <Link to="/create-resume" className="btn btn-outline-danger custom">
+          <Link
+            to="/create-resume"
+            className="btn btn-outline-danger custom"
+            id="create_resume"
+          >
             CREATE RESUME NOW
           </Link>
         </div>

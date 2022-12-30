@@ -10,6 +10,9 @@ import University from "./University";
 import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import JobExperience from "./JobExperience";
+import Profile from "./Profile";
+import Feed from "./Feed";
 
 function App() {
   const [user, setUser] = useState();
@@ -35,37 +38,97 @@ function App() {
         <Route
           path="/login"
           index
-          element={<Login user={user} setUser={setUser} />}
+          element={
+            <Login
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
         />
         <Route
           path="/register"
           index
-          element={<SignUp user={user} setUser={setUser} />}
+          element={
+            <SignUp
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
         />
         <Route
           path="/create-resume"
           index
-          element={<ResumeForm user={user} setUser={setUser} />}
+          element={
+            <ResumeForm
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
         />
         <Route
-          path="/position"
+          path="/experience"
           index
-          element={<Position user={user} setUser={setUser} />}
+          element={
+            <JobExperience
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
         />
         <Route
           path="/languages"
           index
-          element={<ProgrammingLanguage user={user} setUser={setUser} />}
+          element={
+            <ProgrammingLanguage
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
         />
         <Route
           path="/education"
           index
-          element={<University user={user} setUser={setUser} />}
+          element={
+            <University
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
         />
         <Route
           path="/position"
           index
-          element={<Position user={user} setUser={setUser} />}
+          element={
+            <Position
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
+        />
+        <Route
+          path="/profile"
+          index
+          element={
+            <Profile
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
+        />
+        <Route
+          path="/feed"
+          index
+          element={
+            <Feed user={user} setUser={setUser} axiosInstance={axiosInstance} />
+          }
         />
       </Routes>
     </div>

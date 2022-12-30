@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Login from "./Login";
 import "./ResumeForm.scss";
 
-function ResumeForm() {
+function ResumeForm({ user, setUser, axiosInstance }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   // const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -12,7 +16,19 @@ function ResumeForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    navigate("/education");
   };
+
+  if (!user) {
+    return (
+      <Login
+        user={user}
+        setUser={setUser}
+        axiosInstance={axiosInstance}
+        location={location}
+      />
+    );
+  }
 
   return (
     <div className="container-md text-center" id="resume_form">

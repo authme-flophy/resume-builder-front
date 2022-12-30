@@ -1,8 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ProgrammingLanguage.scss";
 
 function ProgrammingLanguage() {
-  return <div>ProgrammingLanguage</div>;
+  const [languages, setLanguages] = useState([]);
+  const languageOptions = [
+    "Javascript",
+    "Python",
+    "Go",
+    "Java",
+    "Kotlin",
+    "PHP",
+    "C#",
+    "Swift",
+    "R",
+    "Ruby",
+    "C",
+    "C++",
+    "TypeScript",
+    "SQL",
+    "CSS",
+    "Rust",
+    "Perl",
+    "Django",
+    "Rails",
+    "Postgres",
+  ];
+
+  const navigate = useNavigate();
+
+  const handleChecked = (e) => {
+    if (e.target.checked) {
+      setLanguages([...languages, e.target.value]);
+    } else {
+      setLanguages(languages.filter((language) => language !== e.target.value));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("languages", languages);
+    console.log(languages);
+
+    navigate("/profile");
+  };
+
+  return (
+    <div id="languages_form">
+      <form id="inner_form" onSubmit={(e) => handleSubmit(e)}>
+        <div className="ericustom">
+          {languageOptions.map((languageOption) => {
+            return (
+              <div class="form-check col-md">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="language"
+                  value={languageOption}
+                  id={languageOption}
+                  onChange={(e) => handleChecked(e)}
+                />
+                <label class="form-check-label" for={languageOption}>
+                  {languageOption}
+                </label>
+              </div>
+            );
+          })}
+        </div>
+        <button id="submit_button" class="btn btn-primary" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default ProgrammingLanguage;

@@ -1,12 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import "./Navbar.scss";
 
 function Navbar({ user, setUser }) {
+  const [navCollapsed, setNavCollapsed] = useState(false);
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.clear();
     setUser(null);
+    setNavCollapsed(!navCollapsed);
+    navigate("/");
   };
 
   return (
@@ -23,16 +28,37 @@ function Navbar({ user, setUser }) {
           data-bs-toggle="collapse"
           data-bs-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02"
-          aria-expanded="false"
+          aria-expanded={!navCollapsed ? true : false}
           aria-label="Toggle navigation"
+          onClick={(e) => setNavCollapsed(!navCollapsed)}
         >
           <i className="material-icons">dehaze</i>
         </button>
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <div
+          className={`${!navCollapsed ? "collapse" : ""} navbar-collapse`}
+          id="navbarTogglerDemo02"
+        >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link id="home" className="nav-link" aria-current="page" to="/">
+              <Link
+                id="home"
+                className="nav-link"
+                aria-current="page"
+                to="/"
+                onClick={(e) => setNavCollapsed(!navCollapsed)}
+              >
                 Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                id="feed"
+                className="nav-link"
+                aria-current="page"
+                to="/feed"
+                onClick={(e) => setNavCollapsed(!navCollapsed)}
+              >
+                Feed
               </Link>
             </li>
           </ul>
@@ -51,12 +77,13 @@ function Navbar({ user, setUser }) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
+                  <Link
+                    to="/profile"
                     id="profile"
                     className="nav-link"
                     aria-current="page"
                     style={{ cursor: "pointer" }}
-                    onClick={(e) => handleLogout()}
+                    onClick={(e) => setNavCollapsed(!navCollapsed)}
                   >
                     <img
                       id="nav-image"
@@ -64,7 +91,7 @@ function Navbar({ user, setUser }) {
                       alt="profile picture"
                     />
                     {user.username}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             ) : (
@@ -75,6 +102,7 @@ function Navbar({ user, setUser }) {
                     className="nav-link"
                     aria-current="page"
                     to="/login"
+                    onClick={(e) => setNavCollapsed(!navCollapsed)}
                   >
                     Login
                   </Link>
@@ -85,6 +113,7 @@ function Navbar({ user, setUser }) {
                     className="nav-link"
                     aria-current="page"
                     to="/register"
+                    onClick={(e) => setNavCollapsed(!navCollapsed)}
                   >
                     SignUp
                   </Link>

@@ -18,8 +18,15 @@
   color: white;
 }
 
-#login, #signup, #home, #profile, #logout {
-  color: #F1554C
+#login, #signup, #home, #profile, #logout, #feed {
+  color: #F1554C;
+  font-size: 1.2rem;
+}
+
+#logout {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-toggler {

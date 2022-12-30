@@ -37,6 +37,10 @@ img {
   height: auto;
 }
 
+#create_resume {
+  transform: scale(1.5);
+}
+
 @media (max-width: 576px) { 
   img {
     margin-top: 2rem;
@@ -46,5 +50,8 @@ img {
   }
   .row {
     align-items: center;
+  }
+  #create_resume {
+    transform: scale(1);
   }
  }

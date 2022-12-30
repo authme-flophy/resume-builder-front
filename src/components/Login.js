@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.scss";
 
-function Login({ user, setUser }) {
+function Login({ user, setUser, axiosInstance, location }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -14,19 +14,19 @@ function Login({ user, setUser }) {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:4000/login", formData)
+    axiosInstance
+      .post("/login", formData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
-        navigate("/");
+        location !== undefined ? navigate(location.pathname) : navigate("/");
       })
       .catch((err) => console.error(err));
   };
 
   return (
     <div className="container-md text-center" id="login_form">
-      <form onSubmit={(e) => handleLogin(e)}>
+      <form>
         <div className="mb-3">
           <label for="username" className="form-label">
             Username
@@ -53,7 +53,12 @@ function Login({ user, setUser }) {
             }
           />
         </div>
-        <button id="submit_button" type="submit" className="btn btn-primary">
+        <button
+          id="submit_button"
+          type="submit"
+          className="btn btn-primary"
+          onClick={(e) => handleLogin(e)}
+        >
           Login
         </button>
       </form>
