@@ -2,19 +2,34 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./JobExperience.scss";
 
-function JobExperience() {
+function JobExperience({ axiosInstance }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    title: "",
-    company_name: "",
-    start_year: "",
-    end_year: "",
-  });
+
+  const [jobTitle, setJobTitle] = useState();
+  const [employer, setEmployer] = useState();
+  const [startYear, setStartYear] = useState();
+  const [endYear, setEndYear] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigate("/position");
+
+    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
+    const formData = {
+      title: jobTitle,
+      company_name: employer,
+      start_year: startYear,
+      end_year: endYear,
+      resume_id: resumeId,
+    };
+
+    axiosInstance
+      .post("/job_experiences", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/position");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -29,9 +44,7 @@ function JobExperience() {
             type="text"
             class="form-control"
             id="job_title"
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
+            onChange={(e) => setJobTitle(e.target.value)}
           />
         </div>
 
@@ -41,9 +54,7 @@ function JobExperience() {
             type="text"
             class="form-control"
             id="company_name"
-            onChange={(e) =>
-              setFormData({ ...formData, company_name: e.target.value })
-            }
+            onChange={(e) => setEmployer(e.target.value)}
           />
         </div>
 
@@ -54,9 +65,7 @@ function JobExperience() {
               type="number"
               class="form-control"
               id="start_year"
-              onChange={(e) =>
-                setFormData({ ...formData, start_year: e.target.value })
-              }
+              onChange={(e) => setStartYear(parseInt(e.target.value, 10))}
             />
           </div>
           <div class="col-md">
@@ -65,9 +74,7 @@ function JobExperience() {
               type="number"
               class="form-control"
               id="end_year"
-              onChange={(e) =>
-                setFormData({ ...formData, end_year: e.target.value })
-              }
+              onChange={(e) => setEndYear(parseInt(e.target.value, 10))}
             />
           </div>
         </div>

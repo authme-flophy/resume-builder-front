@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../media/landing.svg";
+import Feed from "./Feed";
 import "./Home.scss";
 
-function Home() {
+function Home({ user, setUser, axiosInstance }) {
+  if (user) {
+    return <Feed user={user} setUser={setUser} axiosInstance={axiosInstance} />;
+  }
+
   return (
     <div className="container-sm justify-content-center">
       <div className="row">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import "./Navbar.scss";
@@ -6,7 +6,6 @@ import "./Navbar.scss";
 function Navbar({ user, setUser }) {
   const [navCollapsed, setNavCollapsed] = useState(false);
   const navigate = useNavigate();
-
   const handleLogout = () => {
     localStorage.clear();
     setUser(null);
@@ -48,17 +47,6 @@ function Navbar({ user, setUser }) {
                 onClick={(e) => setNavCollapsed(!navCollapsed)}
               >
                 Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                id="feed"
-                className="nav-link"
-                aria-current="page"
-                to="/feed"
-                onClick={(e) => setNavCollapsed(!navCollapsed)}
-              >
-                Feed
               </Link>
             </li>
           </ul>

@@ -1,34 +1,43 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import Login from "./Login";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ResumeForm.scss";
 
-function ResumeForm({ user, setUser, axiosInstance }) {
+function ResumeForm({ axiosInstance }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  // const [page, setPage] = useState(0);
+
   const [formData, setFormData] = useState({
     first_name: "",
     second_name: "",
     email: "",
+    image_url: "",
   });
+
+  useEffect(() => {
+    axiosInstance
+      .get("/me")
+      .then((res) => {
+        setFormData({
+          ...formData,
+          first_name: res.data.user.first_name,
+          second_name: res.data.user.second_name,
+          email: res.data.user.email,
+          image_url: res.data.user.image_url,
+        });
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    axiosInstance
+      .post("/resumes", formData)
+      .then((res) => {
+        localStorage.setItem("resume_id", JSON.stringify(res.data.id));
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
     navigate("/education");
   };
-
-  if (!user) {
-    return (
-      <Login
-        user={user}
-        setUser={setUser}
-        axiosInstance={axiosInstance}
-        location={location}
-      />
-    );
-  }
 
   return (
     <div className="container-md text-center" id="resume_form">
@@ -58,6 +67,7 @@ function ResumeForm({ user, setUser, axiosInstance }) {
             type="text"
             className="form-control"
             id="second_name"
+            value={formData.second_name}
             onChange={(e) =>
               setFormData({ ...formData, second_name: e.target.value })
             }
@@ -71,6 +81,7 @@ function ResumeForm({ user, setUser, axiosInstance }) {
             type="email"
             className="form-control"
             id="email"
+            value={formData.email}
             aria-describedby="emailHelp"
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })

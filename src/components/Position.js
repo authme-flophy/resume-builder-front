@@ -2,17 +2,30 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Position.scss";
 
-function Position() {
+function Position({ axiosInstance }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-  });
+
+  const [name, setName] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigate("/languages");
+
+    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
+    const formData = {
+      name: name,
+      resume_id: resumeId,
+    };
+
+    axiosInstance
+      .post("/positions", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/languages");
+      })
+      .catch((err) => console.error(err));
   };
+
   return (
     <div class="container-md text-center" id="experience_form">
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -25,7 +38,7 @@ function Position() {
             type="text"
             class="form-control"
             id="position_title"
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <button id="submit_button" type="submit" class="btn btn-primary">

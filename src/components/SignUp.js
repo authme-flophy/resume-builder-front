@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 
-function SignUp() {
+function SignUp({ user, setUser, axiosInstance }) {
   const [first_name, setFirstName] = useState();
   const [second_name, setSecondName] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const navigate = useNavigate();
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -20,13 +23,16 @@ function SignUp() {
     formData.append("password", password);
     formData.append("image", e.target.image.files[0]);
 
-    fetch("http://localhost:4000/register", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => console.log(res))
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    axiosInstance
+      .post("/register", formData)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        console.log(res.data.user);
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
   };
   return (
     <div className="container-md text-center" id="signup_form">
@@ -96,6 +102,12 @@ function SignUp() {
         <button id="submit_button" type="submit" className="btn btn-primary">
           Register
         </button>
+        <p className="auth_redirect">
+          Already have an account? &nbsp;
+          <Link className="redirect_link" to="/login">
+            Login Here
+          </Link>
+        </p>
       </form>
     </div>
   );

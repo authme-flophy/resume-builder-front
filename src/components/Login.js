@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 
 function Login({ user, setUser, axiosInstance, location }) {
@@ -19,6 +18,9 @@ function Login({ user, setUser, axiosInstance, location }) {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        console.log(res.data.user);
+        localStorage.setItem("loggedIn", JSON.stringify(true));
         location !== undefined ? navigate(location.pathname) : navigate("/");
       })
       .catch((err) => console.error(err));
@@ -61,6 +63,12 @@ function Login({ user, setUser, axiosInstance, location }) {
         >
           Login
         </button>
+        <p className="auth_redirect">
+          Already have an account? &nbsp;
+          <Link className="redirect_link" to="/register">
+            Register Here
+          </Link>
+        </p>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProgrammingLanguage.scss";
 
-function ProgrammingLanguage() {
+function ProgrammingLanguage({ axiosInstance }) {
   const [languages, setLanguages] = useState([]);
   const languageOptions = [
     "Javascript",
@@ -40,21 +40,30 @@ function ProgrammingLanguage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
     const formData = new FormData();
 
     formData.append("languages", languages);
     console.log(languages);
+    formData.append("resume_id", resumeId);
 
-    navigate("/profile");
+    axiosInstance
+      .post("/programming_languages", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/profile");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
     <div id="languages_form">
       <form id="inner_form" onSubmit={(e) => handleSubmit(e)}>
         <div className="ericustom">
-          {languageOptions.map((languageOption) => {
+          {languageOptions.map((languageOption, index) => {
             return (
-              <div class="form-check col-md">
+              <div class="form-check col-md" key={index}>
                 <input
                   class="form-check-input"
                   type="checkbox"

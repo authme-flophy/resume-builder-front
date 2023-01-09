@@ -11,3 +11,13 @@
 #first_name:focus, #second_name:focus, #email:focus, #image:focus, #username:focus, #password:focus {
   border: 1px solid #F1554C;
 }
+
+.auth_redirect {
+  margin-top: 1rem;
+  color: #fff;
+}
+
+.redirect_link {
+  color: #F1554C;
+  text-decoration: none;
+}

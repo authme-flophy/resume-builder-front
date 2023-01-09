@@ -2,19 +2,34 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./University.scss";
 
-function University() {
+function University({ user, axiosInstance }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    school_name: "",
-    course_name: "",
-    start_year: "",
-    end_year: "",
-  });
+
+  const [name, setName] = useState();
+  const [courseName, setCourseName] = useState();
+  const [startYear, setStartYear] = useState();
+  const [endYear, setEndYear] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigate("/experience");
+
+    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
+    const formData = {
+      name: name,
+      course_name: courseName,
+      start_year: startYear,
+      end_year: endYear,
+      resume_id: resumeId,
+    };
+
+    axiosInstance
+      .post("/schools", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/experience");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -29,21 +44,16 @@ function University() {
             type="text"
             class="form-control"
             id="school_name"
-            onChange={(e) =>
-              setFormData({ ...formData, school_name: e.target.value })
-            }
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
-
         <div class="form-group">
           <label for="course_name">Course Name</label>
           <input
             type="text"
             class="form-control"
             id="course_name"
-            onChange={(e) =>
-              setFormData({ ...formData, course_name: e.target.value })
-            }
+            onChange={(e) => setCourseName(e.target.value)}
           />
         </div>
 
@@ -54,9 +64,7 @@ function University() {
               type="number"
               class="form-control"
               id="start_year"
-              onChange={(e) =>
-                setFormData({ ...formData, start_year: e.target.value })
-              }
+              onChange={(e) => setStartYear(parseInt(e.target.value, 10))}
             />
           </div>
           <div class="col-md">
@@ -65,9 +73,7 @@ function University() {
               type="number"
               class="form-control"
               id="end_year"
-              onChange={(e) =>
-                setFormData({ ...formData, end_year: e.target.value })
-              }
+              onChange={(e) => setEndYear(parseInt(e.target.value, 10))}
             />
           </div>
         </div>

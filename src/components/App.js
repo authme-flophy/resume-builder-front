@@ -13,28 +13,39 @@ import axios from "axios";
 import JobExperience from "./JobExperience";
 import Profile from "./Profile";
 import Feed from "./Feed";
+import ProtectedRoutes from "../ProtectedRoutes";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState();
+
   const axiosInstance = axios.create({
     baseURL: "http://localhost:4000",
     headers: { Authorization: localStorage.getItem("token") },
   });
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      axiosInstance
-        .get("/me")
-        .then((res) => setUser(res.data))
-        .catch((err) => console.error(err));
-    }
+    axiosInstance
+      .get("/me")
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        // localStorage.setItem("token", JSON.stringify(res.data.token));
+        setLoggedIn(true);
+        localStorage.setItem("loggedIn", loggedIn);
+        setUser(JSON.parse(localStorage.getItem("user")));
+      })
+      .catch((err) => {
+        console.error(err.response.status);
+        setLoggedIn(false);
+        localStorage.setItem("loggedIn", loggedIn);
+      });
   }, []);
 
   return (
     <div className="App">
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" index element={<Home />} />
         <Route
           path="/login"
           index
@@ -58,78 +69,47 @@ function App() {
           }
         />
         <Route
-          path="/create-resume"
+          path="/"
           index
-          element={
-            <ResumeForm
-              user={user}
-              setUser={setUser}
-              axiosInstance={axiosInstance}
-            />
-          }
+          element={<Home user={user} setUser={setUser} />}
         />
-        <Route
-          path="/experience"
-          index
-          element={
-            <JobExperience
-              user={user}
-              setUser={setUser}
-              axiosInstance={axiosInstance}
-            />
-          }
-        />
-        <Route
-          path="/languages"
-          index
-          element={
-            <ProgrammingLanguage
-              user={user}
-              setUser={setUser}
-              axiosInstance={axiosInstance}
-            />
-          }
-        />
-        <Route
-          path="/education"
-          index
-          element={
-            <University
-              user={user}
-              setUser={setUser}
-              axiosInstance={axiosInstance}
-            />
-          }
-        />
-        <Route
-          path="/position"
-          index
-          element={
-            <Position
-              user={user}
-              setUser={setUser}
-              axiosInstance={axiosInstance}
-            />
-          }
-        />
-        <Route
-          path="/profile"
-          index
-          element={
-            <Profile
-              user={user}
-              setUser={setUser}
-              axiosInstance={axiosInstance}
-            />
-          }
-        />
-        <Route
-          path="/feed"
-          index
-          element={
-            <Feed user={user} setUser={setUser} axiosInstance={axiosInstance} />
-          }
-        />
+        <Route element={<ProtectedRoutes />}>
+          <Route
+            path="/create-resume"
+            index
+            element={<ResumeForm axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path="/experience"
+            index
+            element={<JobExperience axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path="/languages"
+            index
+            element={<ProgrammingLanguage axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path="/education"
+            index
+            element={<University axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path="/position"
+            index
+            element={<Position axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path="/profile"
+            index
+            element={<Profile axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path="/feed"
+            index
+            element={<Feed axiosInstance={axiosInstance} />}
+          />
+        </Route>
       </Routes>
     </div>
   );

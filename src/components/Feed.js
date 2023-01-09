@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Feed.scss";
 
-function Feed() {
+function Feed({ axiosInstance }) {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  // useEffect(() => {
+  //   axiosInstance
+  //     .get("/me")
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, []);
+
   return (
     <div>
       <section class="dark">
@@ -14,13 +25,13 @@ function Feed() {
             <a class="postcard__img_link" href="#">
               <img
                 class="postcard__img"
-                src="https://picsum.photos/1000/1000"
+                src={user.image_url}
                 alt="Image Title"
               />
             </a>
             <div class="postcard__text">
               <h1 class="postcard__title blue">
-                <a href="#">Podcast Title</a>
+                <a href="#">{`${user.first_name} ${user.second_name}`}</a>
               </h1>
               <div class="postcard__subtitle small">
                 <time datetime="2020-05-25 12:00:00">
@@ -38,6 +49,7 @@ function Feed() {
                 illum quos!
               </div>
               <ul class="postcard__tagbox">
+                {}
                 <li class="tag__item">
                   <i class="fas fa-tag mr-2"></i>Podcast
                 </li>
