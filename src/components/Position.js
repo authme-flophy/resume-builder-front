@@ -10,11 +10,11 @@ function Position({ axiosInstance }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+    const userId = JSON.parse(localStorage.getItem("user")).id;
 
     const formData = {
       name: name,
-      resume_id: resumeId,
+      user_id: userId,
     };
 
     axiosInstance
