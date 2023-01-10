@@ -1,12 +1,8 @@
 .form-inner 
 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     padding: 10px;
-    width: 400px;
-    background-color: rgb(218, 189, 189);
+    width: 600px;
+    background-color: #16171D;
     border-radius: 10px; 
 }
 
@@ -16,8 +12,8 @@
 {
     text-align: center;
     padding: 0 0 20px 0;
-    font-size: 30px;
-    border-bottom: 1px solid rgba(127, 188, 241, 0.984);
+    font-size: 30px;  
+    color: #F1554C;
 }
 
 .form-inner form 
@@ -40,7 +36,8 @@ form .form-group
     padding: 0 5px;
     font-size: 16px;
     border: none;
-    background: rgba(127, 188, 241, 0.854);
+    background: #16171D;
+    border: 2px solid #F1554C;
     border-radius: 50px;
     outline: none;
 }
@@ -50,7 +47,7 @@ form .form-group
     position: absolute;
     top: 50%;
     left: 10px;
-    color: #000;
+    color: #F1554C;
     transform: translateY(-50%);
     font-size: 16px;
     pointer-events: none;
@@ -72,10 +69,8 @@ form .form-group
 .form-group input:focus ~label,
 .form-group input:valid~label
 {
-    top: -7px;
-    color: #000;
-    font-weight: bold;
-    letter-spacing: 2px;
+    top: -8px;
+    color: #F1554C;
     font-size: 14px;
 }
 
@@ -86,19 +81,19 @@ form .form-group
     width: 100%;
 }
 
-input[type="Submit"]
-{
-    width: 100%;
-    height: 50px;
-    border: 1px solid;
-    background-color: #0d6bc3;
-    border-radius: 25px;
-    font-size: 18px;
-    color: #e9f4fb;
-    font-weight: 700;
-    cursor: pointer;
-    outline: none;
-}
+// #submitButton
+// {
+//     width: 100%;
+//     height: 50px;
+//     border: 1px solid;
+//     background-color: #16171D;
+//     border-radius: 25px;
+//     font-size: 18px;
+//     color: #e9f4fb;
+//     font-weight: 700;
+//     cursor: pointer;
+//     outline: none;
+// }
 
 input[type="Submit"]:hover
 {
@@ -112,13 +107,13 @@ input[type="Submit"]:hover
     margin: 30px 0;
     text-align: center;
     font-size: 18px;
-    color: #000;
+    color: #fff  ;
 }
 
 .signup_link a,
 .login_link a
 {
-    color: red;
+    color: #F1554C;
     text-decoration: none;
     padding-left: 5px;
     font-size: 20px;
@@ -128,5 +123,5 @@ input[type="Submit"]:hover
 .signup_link a:hover,
 .login_link a:hover
 {
-    text-decoration: underline;
+    text-decoration: none;
 }
