@@ -5,6 +5,7 @@ import Feed from "./Feed";
 import "./Home.scss";
 
 function Home({ user, setUser, axiosInstance }) {
+  console.log(user);
   if (user) {
     return <Feed user={user} setUser={setUser} axiosInstance={axiosInstance} />;
   }

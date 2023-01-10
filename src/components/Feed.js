@@ -1,69 +1,31 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Feed.scss";
+import UserCard from "./UserCard";
 
-function Feed({ axiosInstance }) {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+function Feed() {
+  const [users, setUsers] = useState();
 
-  // useEffect(() => {
-  //   axiosInstance
-  //     .get("/me")
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, []);
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:4000",
+    headers: { Authorization: localStorage.getItem("token") },
+  });
+
+  useEffect(() => {
+    axiosInstance
+      .get("/users")
+      .then((res) => {
+        console.log(res.data);
+        setUsers(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div>
       <section class="dark">
         <div class="container py-4">
-          <h1 class="h1 text-center" id="pageHeaderTitle">
-            My Cards Dark
-          </h1>
-
-          <article class="postcard dark blue">
-            <a class="postcard__img_link" href="#">
-              <img
-                class="postcard__img"
-                src={user.image_url}
-                alt="Image Title"
-              />
-            </a>
-            <div class="postcard__text">
-              <h1 class="postcard__title blue">
-                <a href="#">{`${user.first_name} ${user.second_name}`}</a>
-              </h1>
-              <div class="postcard__subtitle small">
-                <time datetime="2020-05-25 12:00:00">
-                  <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-                </time>
-              </div>
-              <div class="postcard__bar"></div>
-              <div class="postcard__preview-txt">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi, fugiat asperiores inventore beatae accusamus odit
-                minima enim, commodi quia, doloribus eius! Ducimus nemo
-                accusantium maiores velit corrupti tempora reiciendis molestiae
-                repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt
-                neque nulla unde ipsum dolores nobis enim quidem excepturi,
-                illum quos!
-              </div>
-              <ul class="postcard__tagbox">
-                {}
-                <li class="tag__item">
-                  <i class="fas fa-tag mr-2"></i>Podcast
-                </li>
-                <li class="tag__item">
-                  <i class="fas fa-clock mr-2"></i>55 mins.
-                </li>
-                <li class="tag__item play blue">
-                  <a href="#">
-                    <i class="fas fa-play mr-2"></i>Play Episode
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </article>
+          {users && users.map((user) => <UserCard user={user} />)}
         </div>
       </section>
     </div>
