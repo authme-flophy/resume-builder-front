@@ -7,6 +7,7 @@ function JobExperience({ axiosInstance }) {
 
   const [jobTitle, setJobTitle] = useState();
   const [employer, setEmployer] = useState();
+  const [summary, setSummary] = useState();
   const [startYear, setStartYear] = useState();
   const [endYear, setEndYear] = useState();
 
@@ -18,6 +19,7 @@ function JobExperience({ axiosInstance }) {
     const formData = {
       title: jobTitle,
       company_name: employer,
+      summary: summary,
       start_year: startYear,
       end_year: endYear,
       resume_id: resumeId,
@@ -36,7 +38,7 @@ function JobExperience({ axiosInstance }) {
     <div class="container-md text-center" id="experience_form">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
-          <h1>Previous Employers</h1>
+          <h1>Previous Experience</h1>
         </div>
         <div class="form-group">
           <label for="job_title"> Job Title</label>
@@ -56,6 +58,16 @@ function JobExperience({ axiosInstance }) {
             id="company_name"
             onChange={(e) => setEmployer(e.target.value)}
           />
+        </div>
+
+        <div class="form-group">
+          <label for="summary">Summary of what you did</label>
+          <textarea
+            class="form-control"
+            id="summary"
+            rows="3"
+            onChange={(e) => setSummary(e.target.value)}
+          ></textarea>
         </div>
 
         <div className="row g-2">

@@ -11,7 +11,7 @@ function Home({ user, setUser, axiosInstance }) {
   }
 
   return (
-    <div className="container-sm justify-content-center">
+    <div className="container-sm justify-content-center home">
       <div className="row">
         <div className="col-sm-6 text-section">
           <h1 className=" call-text">Get the right job you deserve</h1>

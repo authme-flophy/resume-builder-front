@@ -54,6 +54,17 @@ function Navbar({ user, setUser }) {
             {user ? (
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
+                  <Link
+                    to="/create-resume"
+                    id="logout"
+                    className="nav-link"
+                    aria-current="page"
+                    style={{ cursor: "pointer" }}
+                  >
+                    Create Resume
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <a
                     id="logout"
                     className="nav-link"

@@ -1,0 +1,23 @@
+.profile_card {
+  display: flex;
+  width: 100%;
+}
+
+.img_div {
+  width: 40%;
+}
+
+#profile_img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.info_div {
+  // width: 60%;
+}
+
+#position {
+  color: #F1554C;
+}
