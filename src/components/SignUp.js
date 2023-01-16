@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 
-function SignUp() {
+function SignUp({ user, setUser, axiosInstance }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [firstname, setFirstName] = useState("");
-  const [secondname, setSecondName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [first_name, setFirstName] = useState();
+  const [second_name, setSecondName] = useState();
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [notification, setNotification] = useState(false);
 
   function handleNotification() {
@@ -25,25 +24,37 @@ function SignUp() {
 
   function submitHandler(e) {
     e.preventDefault();
-    fetch("", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstname,
-        secondname,
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => handleNotification());
-      } else {
-        res.json().then((error) => setError(error));
-      }
-    });
+
+    const formData = new FormData();
+
+    formData.append("first_name", first_name);
+    formData.append("second_name", second_name);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", e.target.image.files[0]);
+
+    axiosInstance
+      .post("/register", formData)
+      .then((res) => {
+        if (res.ok) {
+          console.log("i work");
+        }
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        console.log(res.data.user);
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
+
+    // .then((res) => {
+    //   if (res.ok) {
+    //     res.json().then((user) => handleNotification());
+    //   } else {
+    //     res.json().then((error) => setError(error));
+    //   }
+    // });
   }
 
   return (
@@ -81,7 +92,7 @@ function SignUp() {
             name="firstname"
             required="required"
             autoComplete="off"
-            value={firstname}
+            value={first_name}
             onChange={(e) => setFirstName(e.target.value)}
           />
           <label>First Name</label>
@@ -94,7 +105,7 @@ function SignUp() {
             name="secondname"
             required="required"
             autoComplete="off"
-            value={secondname}
+            value={second_name}
             onChange={(e) => setSecondName(e.target.value)}
           />
           <label>Second Name</label>
@@ -143,19 +154,6 @@ function SignUp() {
             autoComplete="current-password"
           />
           <label>Password</label>
-        </div>
-
-        <div className="form-group">
-          <input
-            type="password"
-            name="password"
-            required="required"
-            id="password"
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            autoComplete="current-password"
-          />
-          <label>Password Confirmation</label>
         </div>
 
         <button
