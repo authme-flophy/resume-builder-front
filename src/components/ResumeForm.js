@@ -67,9 +67,53 @@ function ResumeForm() {
             }
           />
         </div>
+
+        <div className="mb-3">
+          <label for="linkedin" className="form-label">
+            Linkedin
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="likendin"
+            onChange={(e) =>
+              setFormData({ ...formData, linkedin: e.target.value })
+            }
+          />
+        </div>
+
+        <div className="mb-3">
+          <label for="github" className="form-label">
+           Github
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="github"
+            onChange={(e) =>
+              setFormData({ ...formData, github: e.target.value })
+            }
+          />
+        </div>
+
+        <div className="mb-3">
+          <label for="portfolio" className="form-label">
+          Portfolio
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="portfolio"
+            onChange={(e) =>
+              setFormData({ ...formData, portfolio: e.target.value })
+            }
+          />
+        </div>
+
         <div className="mb-3">
           <button className="btn btn-primary">SUBMIT</button>
         </div>
+        
       </form>
     </div>
   );
