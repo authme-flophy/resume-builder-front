@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "../media/landing.svg";
 import "./Home.scss";
 
-function Home() {
+function Home({ user }) {
+  console.log(user);
   return (
     <div class="container-sm">
       <div class="row">

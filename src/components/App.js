@@ -21,9 +21,11 @@ function App() {
   const [user, setUser] = useState();
 
   const axiosInstance = axios.create({
-    baseURL: "http://192.168.55.105:4000",
+    baseURL: "http://localhost:4000",
     headers: { Authorization: localStorage.getItem("token") },
   });
+
+  console.log(axiosInstance);
 
   useEffect(() => {
     axiosInstance

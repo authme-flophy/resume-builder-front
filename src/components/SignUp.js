@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./SignUp.scss";
@@ -19,7 +20,7 @@ function SignUp({ user, setUser, axiosInstance }) {
 
   function endNotification() {
     setNotification((notification) => !notification);
-    navigate("/Login.js");
+    navigate("/");
   }
 
   function submitHandler(e) {
@@ -34,8 +35,8 @@ function SignUp({ user, setUser, axiosInstance }) {
     formData.append("password", password);
     formData.append("image", e.target.image.files[0]);
 
-    axiosInstance
-      .post("/register", formData)
+    axios
+      .post("http://localhost:4000/register", formData)
       .then((res) => {
         if (res.ok) {
           console.log("i work");
@@ -79,7 +80,7 @@ function SignUp({ user, setUser, axiosInstance }) {
           </svg>
         </p>
       ) : null}
-      <form>
+      <form onSubmit={(e) => submitHandler(e)}>
         <div className="form-group">
           {error ? (
             <p className="border text-center p-3 text-red-500 outline-none rounded-md w-full mt-2">
@@ -139,7 +140,7 @@ function SignUp({ user, setUser, axiosInstance }) {
           <label for="image" class="form-label">
             Default file input example
           </label>
-          <input className="form-control" type="file" id="image" />
+          <input className="form-control" type="file" id="image" name="image" />
         </div>
 
         <div className="form-group">
@@ -158,7 +159,6 @@ function SignUp({ user, setUser, axiosInstance }) {
 
         <button
           className="outline text-sky-400 hover:bg-sky-400 hover:text-white rounded-lg p-2 "
-          onClick={submitHandler}
           type="submit"
           id="submitButton"
         >

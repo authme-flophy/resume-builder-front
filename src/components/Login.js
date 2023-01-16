@@ -1,52 +1,56 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Login.scss";
 
-function Login() {
+function Login({ user, setUser, axiosInstance, location }) {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [notify, setNotify] = useState(false);
 
-  function notifyUser() {
+  function notifyUser(e) {
+    console.log(e.target.childNodes[2].setAttribute("disabled", ""));
     setNotify((notify) => !notify);
     setTimeout(endNotification, 1000);
+  }
+
+  function endNotification() {
+    setNotify((notify) => !notify);
+    navigate("/");
   }
 
   function submitHandler(e) {
     setError(null);
     e.preventDefault();
-  }
+    const formData = {
+      username: username,
+      password: password,
+    };
+    console.log(formData);
 
-  function endNotification() {
-    setNotify((notify) => !notify);
-    navigate("/Home");
+    axios
+      .post("http://localhost:4000/login", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.setItem("token", res.data.token);
+          setUser(res.data.user);
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          console.log(res.data.user);
+          localStorage.setItem("loggedIn", JSON.stringify(true));
+          location !== undefined ? navigate(location.pathname) : navigate("/");
+          notifyUser(e);
+        }
+      })
+      .catch((err) => console.error(err));
   }
 
   return (
     <div className="form-inner">
       <h1>Login</h1>
-      {notify ? (
-        <p className="bg-sky-900 text-white w-full p-3 rounded-md flex flex-row justify-center items-center">
-          Login Successfull
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-        </p>
-      ) : null}
+      {notify ? <p className="notification">Login Successful</p> : null}
       <form onSubmit={submitHandler}>
         {error ? (
           <p className="border text-center p-3 text-red-500 outline-none rounded-md w-full mt-2">
