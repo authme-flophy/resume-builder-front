@@ -1,3 +1,113 @@
-.profile {
+#profile_page {
+  color: rgb(191, 184, 184);
+  max-width: 900px;
+
+  h1 {
+    color: #fff;
+    font-weight: bolder;
+  }
+
+}
+
+.title_section {
+  display: flex;
+  align-items: center;
+}
+
+.header_icons {
+  font-size: 1.5rem;
+  padding: 0;
+  // color: #f1554c;
   color: #fff;
+  height: 100%;
+}
+
+.edit_button {
+  margin-left: 1rem;
+
+  button {
+    background-color: #f1554c;
+    border: #f1554c;
+    border-radius: 50px;
+
+    &:hover {
+      background-color: #f1554c;
+    }
+
+  }
+
+}
+
+.profile_section {
+  margin-bottom: .5rem;
+}
+
+.languages_section, .experiences_section {
+  // border-bottom: 1px solid #f1554c;
+  margin-bottom: 3rem;
+}
+
+
+.profile_links {
+  display: flex;
+    flex-flow: row wrap;
+    font-size: 14px;
+    margin: 1rem 0;
+    margin-bottom: 3rem;
+		padding: 0;
+    justify-content: center;
+}
+
+.profile_link {
+  display: inline-block;
+  // background: #F1554C;
+  border-radius: 50px;
+  padding: 2.5px 10px;
+  margin: 0 1rem .5rem 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: #f1554c;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.languages {
+  display: flex;
+    flex-flow: row wrap;
+    font-size: 14px;
+    margin: 1rem 0;
+		padding: 0;
+    // justify-content: center;
+
+    li {
+      display: inline-block;
+      background: #16171d;
+      border: 1px solid #f1554c;
+      border-radius: 50px;
+      padding: 2.5px 10px;
+      margin: 0 1rem .5rem 0;
+      font-size: 1.1rem;
+      cursor: default;
+      user-select: none;
+      transition: background-color 0.3s;
+    
+      &:hover {
+        background: rgba(83, 83, 83, 0.8);
+      }
+    }
+}
+
+@media screen and (min-width: 769px) {
+  .profile_links {
+    justify-content: center;
+
+    .profile_link {
+      font-size: 1.8rem;
+    }
+
+  }
 }

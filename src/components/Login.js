@@ -38,7 +38,10 @@ function Login({ user, setUser, axiosInstance, location }) {
             className="form-control"
             id="username"
             onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
+              setFormData({
+                ...formData,
+                username: e.target.value.toLowerCase(),
+              })
             }
           />
         </div>

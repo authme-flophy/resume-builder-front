@@ -1,10 +1,17 @@
 .profile_card {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
+  justify-content: center;
+}
+
+#fullnames {
+  text-transform: capitalize;
+  color: #fff;
 }
 
 .img_div {
-  width: 40%;
+  margin-bottom: 1rem;
 }
 
 #profile_img {
@@ -15,9 +22,19 @@
 }
 
 .info_div {
-  // width: 60%;
+  
 }
 
 #position {
   color: #F1554C;
+}
+
+@media (min-width:765px) {
+  .profile_card {
+    flex-wrap: nowrap;
+  }
+
+  .img_div {
+    margin-right: 3rem;
+  }
 }

@@ -56,10 +56,11 @@ function Navbar({ user, setUser }) {
                 <li className="nav-item">
                   <Link
                     to="/create-resume"
-                    id="logout"
+                    id="create-resume"
                     className="nav-link"
                     aria-current="page"
                     style={{ cursor: "pointer" }}
+                    onClick={(e) => setNavCollapsed(!navCollapsed)}
                   >
                     Create Resume
                   </Link>
@@ -77,7 +78,7 @@ function Navbar({ user, setUser }) {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/profile"
+                    to={`${user.username}`}
                     id="profile"
                     className="nav-link"
                     aria-current="page"

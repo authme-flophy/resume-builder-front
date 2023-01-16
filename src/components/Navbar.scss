@@ -18,12 +18,12 @@
   color: white;
 }
 
-#login, #signup, #home, #profile, #logout, #feed {
+#login, #signup, #home, #profile, #logout, #feed, #create-resume {
   color: #F1554C;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
-#logout {
+#logout, #create-resume {
   height: 100%;
   display: flex;
   align-items: center;

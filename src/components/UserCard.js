@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import LanguagesTags from "./LanguagesTags";
 
 function UserCard({ user }) {
@@ -6,12 +7,15 @@ function UserCard({ user }) {
 
   return (
     <article class="postcard dark blue">
-      <a class="postcard__img_link" href="#">
+      <Link to={`${user.username}`} class="postcard__img_link" href="#">
         <img class="postcard__img" src={user.image_url} alt="user avatar" />
-      </a>
+      </Link>
       <div class="postcard__text">
         <h1 class="postcard__title blue">
-          <a href="#">{`${user.first_name} ${user.second_name}`}</a>
+          <Link
+            to={`${user.username}`}
+            href="#"
+          >{`${user.first_name} ${user.second_name}`}</Link>
         </h1>
         <div class="postcard__subtitle small">
           <time datetime="2020-05-25 12:00:00">

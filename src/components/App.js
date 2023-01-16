@@ -20,7 +20,7 @@ function App() {
   const [user, setUser] = useState();
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:4000",
+    baseURL: "http://192.168.55.105:4000",
     headers: { Authorization: localStorage.getItem("token") },
   });
 
@@ -68,11 +68,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/"
-          index
-          element={<Home user={user} setUser={setUser} />}
-        />
+        <Route path="/" element={<Home user={user} setUser={setUser} />} />
         <Route element={<ProtectedRoutes />}>
           <Route
             path="/create-resume"
@@ -106,8 +102,11 @@ function App() {
           />
           <Route
             path="/feed"
-            index
             element={<Feed axiosInstance={axiosInstance} />}
+          />
+          <Route
+            path=":profile"
+            element={<Profile axiosInstance={axiosInstance} />}
           />
         </Route>
       </Routes>

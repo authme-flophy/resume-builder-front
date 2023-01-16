@@ -8,7 +8,7 @@ function ProfileCard({ user }) {
         <img id="profile_img" src={user?.image_url} alt="profile img" />
       </div>
       <div className="info_div">
-        <h2>
+        <h2 id="fullnames">
           {user?.first_name} {user?.second_name}
         </h2>
         <h3 id="position">{user?.position?.name}</h3>
