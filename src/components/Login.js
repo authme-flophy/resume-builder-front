@@ -7,28 +7,14 @@ import "./Login.scss";
 function Login({ user, setUser, axiosInstance, location }) {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [notify, setNotify] = useState(false);
-
-  function notifyUser(e) {
-    console.log(e.target.childNodes[2].setAttribute("disabled", ""));
-    setNotify((notify) => !notify);
-    setTimeout(endNotification, 1000);
-  }
-
-  function endNotification() {
-    setNotify((notify) => !notify);
-    navigate("/");
-  }
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
 
   function submitHandler(e) {
     setError(null);
     e.preventDefault();
-    const formData = {
-      username: username,
-      password: password,
-    };
     console.log(formData);
 
     axios
@@ -41,7 +27,7 @@ function Login({ user, setUser, axiosInstance, location }) {
           console.log(res.data.user);
           localStorage.setItem("loggedIn", JSON.stringify(true));
           location !== undefined ? navigate(location.pathname) : navigate("/");
-          notifyUser(e);
+          // notifyUser(e);
         }
       })
       .catch((err) => console.error(err));
@@ -50,7 +36,7 @@ function Login({ user, setUser, axiosInstance, location }) {
   return (
     <div className="form-inner">
       <h1>Login</h1>
-      {notify ? <p className="notification">Login Successful</p> : null}
+      {/* {notify ? <p className="notification">Login Successful</p> : null} */}
       <form onSubmit={submitHandler}>
         {error ? (
           <p className="border text-center p-3 text-red-500 outline-none rounded-md w-full mt-2">
@@ -63,8 +49,9 @@ function Login({ user, setUser, axiosInstance, location }) {
             name="username"
             required="required"
             id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, username: e.target.value })
+            }
           />
           <label>Email</label>
         </div>
@@ -75,8 +62,9 @@ function Login({ user, setUser, axiosInstance, location }) {
             name="password"
             required="required"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
           />
           <label>Password</label>
         </div>
