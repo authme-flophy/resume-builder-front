@@ -14,13 +14,14 @@ import JobExperience from "./JobExperience";
 import Profile from "./Profile";
 import Feed from "./Feed";
 import ProtectedRoutes from "../ProtectedRoutes";
+import PdfTrial from "./PdfTrial";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState();
 
   const axiosInstance = axios.create({
-    baseURL: "http://192.168.55.105:4000",
+    baseURL: "http://localhost:4000",
     headers: { Authorization: localStorage.getItem("token") },
   });
 
@@ -46,6 +47,17 @@ function App() {
     <div className="App">
       <Navbar user={user} setUser={setUser} />
       <Routes>
+        <Route
+          path="/trial"
+          index
+          element={
+            <PdfTrial
+              user={user}
+              setUser={setUser}
+              axiosInstance={axiosInstance}
+            />
+          }
+        />
         <Route
           path="/login"
           index

@@ -84,7 +84,7 @@ function SignUp({ user, setUser, axiosInstance }) {
         </div>
         <div className="mb-3">
           <label for="image" class="form-label">
-            Default file input example
+            Upload an image of yourself
           </label>
           <input className="form-control" type="file" id="image" />
         </div>
