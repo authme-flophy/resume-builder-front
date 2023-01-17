@@ -1,16 +1,16 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 
-function SignUp() {
+function SignUp({ user, setUser, axiosInstance }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [firstname, setFirstName] = useState("");
-  const [secondname, setSecondName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [first_name, setFirstName] = useState();
+  const [second_name, setSecondName] = useState();
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [notification, setNotification] = useState(false);
 
   function handleNotification() {
@@ -20,30 +20,42 @@ function SignUp() {
 
   function endNotification() {
     setNotification((notification) => !notification);
-    navigate("/Login.js");
+    navigate("/");
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    fetch("", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstname,
-        secondname,
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => handleNotification());
-      } else {
-        res.json().then((error) => setError(error));
-      }
-    });
+
+    const formData = new FormData();
+
+    formData.append("first_name", first_name);
+    formData.append("second_name", second_name);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", e.target.image.files[0]);
+
+    axios
+      .post("http://localhost:4000/register", formData)
+      .then((res) => {
+        if (res.ok) {
+          console.log("i work");
+        }
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        console.log(res.data.user);
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
+
+    // .then((res) => {
+    //   if (res.ok) {
+    //     res.json().then((user) => handleNotification());
+    //   } else {
+    //     res.json().then((error) => setError(error));
+    //   }
+    // });
   }
 
   return (
@@ -68,7 +80,7 @@ function SignUp() {
           </svg>
         </p>
       ) : null}
-      <form>
+      <form onSubmit={(e) => submitHandler(e)}>
         <div className="form-group">
           {error ? (
             <p className="border text-center p-3 text-red-500 outline-none rounded-md w-full mt-2">
@@ -81,7 +93,7 @@ function SignUp() {
             name="firstname"
             required="required"
             autoComplete="off"
-            value={firstname}
+            value={first_name}
             onChange={(e) => setFirstName(e.target.value)}
           />
           <label>First Name</label>
@@ -94,7 +106,7 @@ function SignUp() {
             name="secondname"
             required="required"
             autoComplete="off"
-            value={secondname}
+            value={second_name}
             onChange={(e) => setSecondName(e.target.value)}
           />
           <label>Second Name</label>
@@ -128,7 +140,7 @@ function SignUp() {
           <label for="image" class="form-label">
             Default file input example
           </label>
-          <input className="form-control" type="file" id="image" />
+          <input className="form-control" type="file" id="image" name="image" />
         </div>
 
         <div className="form-group">
@@ -145,22 +157,8 @@ function SignUp() {
           <label>Password</label>
         </div>
 
-        <div className="form-group">
-          <input
-            type="password"
-            name="password"
-            required="required"
-            id="password"
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            autoComplete="current-password"
-          />
-          <label>Password Confirmation</label>
-        </div>
-
         <button
           className="outline text-sky-400 hover:bg-sky-400 hover:text-white rounded-lg p-2 "
-          onClick={submitHandler}
           type="submit"
           id="submitButton"
         >
