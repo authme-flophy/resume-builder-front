@@ -13,6 +13,8 @@ function Login({ user, setUser, axiosInstance, location }) {
   const handleLogin = (e) => {
     e.preventDefault();
 
+    console.log("i have been clicked");
+
     axiosInstance
       .post("/login", formData)
       .then((res) => {
@@ -29,49 +31,48 @@ function Login({ user, setUser, axiosInstance, location }) {
   return (
     <div className="container-md text-center" id="login_form">
       <form>
-        <div className="mb-3">
-          <label for="username" className="form-label">
-            Username
-          </label>
+        {error ? (
+          <p className="border text-center p-3 text-red-500 outline-none rounded-md w-full mt-2">
+            {error.errors}
+          </p>
+        ) : null}
+        <div className="form-group">
           <input
-            type="text"
-            className="form-control"
+            type="username"
+            name="username"
+            required="required"
             id="username"
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                username: e.target.value.toLowerCase(),
-              })
-            }
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
+          <label>Email</label>
         </div>
-        <div className="mb-3">
-          <label for="password" className="form-label">
-            Password
-          </label>
+
+        <div className="form-group">
           <input
             type="password"
-            className="form-control"
+            name="password"
+            required="required"
             id="password"
+            value={password}
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
           />
+          <label>Password</label>
         </div>
         <button
-          id="submit_button"
+          className="outline text-sky-600 hover:bg-sky-600 hover:text-white text-2xl px-5 place-self-center rounded-lg h-10"
           type="submit"
-          className="btn btn-primary"
-          onClick={(e) => handleLogin(e)}
+          id="submitButton"
         >
           Login
         </button>
-        <p className="auth_redirect">
-          Already have an account? &nbsp;
-          <Link className="redirect_link" to="/register">
-            Register Here
-          </Link>
-        </p>
+
+        <div className="signup_link">
+          Not a member?
+          <NavLink to="/signup">Signup</NavLink>
+        </div>
       </form>
     </div>
   );
