@@ -7,6 +7,9 @@ function ResumeForm() {
     first_name: "",
     second_name: "",
     email: "",
+    linkedin: "",
+    github: "",
+    portfolio: "",
   });
 
   const handleSubmit = (e) => {
@@ -84,7 +87,7 @@ function ResumeForm() {
 
         <div className="mb-3">
           <label for="github" className="form-label">
-           Github
+            Github
           </label>
           <input
             type="text"
@@ -98,7 +101,7 @@ function ResumeForm() {
 
         <div className="mb-3">
           <label for="portfolio" className="form-label">
-          Portfolio
+            Portfolio
           </label>
           <input
             type="text"
@@ -113,7 +116,6 @@ function ResumeForm() {
         <div className="mb-3">
           <button className="btn btn-primary">SUBMIT</button>
         </div>
-        
       </form>
     </div>
   );
