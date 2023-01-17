@@ -17,8 +17,8 @@ function Login({ user, setUser, axiosInstance, location }) {
     e.preventDefault();
     console.log(formData);
 
-    axios
-      .post("http://localhost:4000/login", formData)
+    axiosInstance
+      .post("/login", formData)
       .then((res) => {
         if (res.status === 200) {
           localStorage.setItem("token", res.data.token);
@@ -27,7 +27,6 @@ function Login({ user, setUser, axiosInstance, location }) {
           console.log(res.data.user);
           localStorage.setItem("loggedIn", JSON.stringify(true));
           location !== undefined ? navigate(location.pathname) : navigate("/");
-          // notifyUser(e);
         }
       })
       .catch((err) => console.error(err));
