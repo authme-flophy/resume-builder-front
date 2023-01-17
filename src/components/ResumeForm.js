@@ -1,31 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ResumeForm.scss";
 
-function ResumeForm() {
-  // const [page, setPage] = useState(0);
+function ResumeForm({ axiosInstance }) {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     first_name: "",
     second_name: "",
     email: "",
+    image_url: "",
     linkedin: "",
     github: "",
     portfolio: "",
   });
 
+  useEffect(() => {
+    axiosInstance
+      .get("/me")
+      .then((res) => {
+        setFormData({
+          ...formData,
+          first_name: res.data.user.first_name,
+          second_name: res.data.user.second_name,
+          email: res.data.user.email,
+          image_url: res.data.user.image_url,
+        });
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    e.target.first_name.value = "";
-    e.target.second_name.value = "";
-    e.target.email.value = "";
+    axiosInstance
+      .post("/resumes", formData)
+      .then((res) => {
+        localStorage.setItem("resume_id", JSON.stringify(res.data.id));
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
+    navigate("/education");
   };
 
   return (
-    <div className="container-sm d-flex justify-content-center">
-      <form
-        className="row col-5 justify-content-center"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+    <div className="container-md text-center" id="resume_form">
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
           <h1>Personal Information</h1>
         </div>
@@ -51,6 +70,7 @@ function ResumeForm() {
             type="text"
             className="form-control"
             id="second_name"
+            value={formData.second_name}
             onChange={(e) =>
               setFormData({ ...formData, second_name: e.target.value })
             }
@@ -64,6 +84,7 @@ function ResumeForm() {
             type="email"
             className="form-control"
             id="email"
+            value={formData.email}
             aria-describedby="emailHelp"
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
@@ -78,7 +99,7 @@ function ResumeForm() {
           <input
             type="text"
             className="form-control"
-            id="likendin"
+            id="linkedin"
             onChange={(e) =>
               setFormData({ ...formData, linkedin: e.target.value })
             }
@@ -112,9 +133,10 @@ function ResumeForm() {
             }
           />
         </div>
-
         <div className="mb-3">
-          <button className="btn btn-primary">SUBMIT</button>
+          <button className="btn btn-primary" id="submit_button">
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>

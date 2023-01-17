@@ -35,12 +35,9 @@ function SignUp({ user, setUser, axiosInstance }) {
     formData.append("password", password);
     formData.append("image", e.target.image.files[0]);
 
-    axios
-      .post("http://localhost:4000/register", formData)
+    axiosInstance
+      .post("/register", formData)
       .then((res) => {
-        if (res.ok) {
-          console.log("i work");
-        }
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
         localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -48,14 +45,6 @@ function SignUp({ user, setUser, axiosInstance }) {
         navigate("/");
       })
       .catch((err) => console.error(err));
-
-    // .then((res) => {
-    //   if (res.ok) {
-    //     res.json().then((user) => handleNotification());
-    //   } else {
-    //     res.json().then((error) => setError(error));
-    //   }
-    // });
   }
 
   return (

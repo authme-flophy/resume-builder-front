@@ -1,3 +1,33 @@
-div {
-  color: white;
+#languages_form {
+  margin: 0rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+#inner_form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ericustom {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.form-check {
+  margin: 0 .5rem;
+}
+
+@media (max-width: 576px) { 
+  .ericustom {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+
 }

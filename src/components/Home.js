@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../media/landing.svg";
+import Feed from "./Feed";
 import "./Home.scss";
 
-function Home({ user }) {
+function Home({ user, setUser, axiosInstance }) {
   console.log(user);
+  if (user) {
+    return <Feed user={user} setUser={setUser} axiosInstance={axiosInstance} />;
+  }
+
   return (
-    <div class="container-sm">
-      <div class="row">
-        <div class="col">
-          <h1 class=" call-text">Get the right job you deserve</h1>
-          <Link to="/create-resume" class="btn btn-outline-danger custom">
+    <div className="container-sm justify-content-center home">
+      <div className="row">
+        <div className="col-sm-6 text-section">
+          <h1 className=" call-text">Get the right job you deserve</h1>
+          <Link
+            to="/create-resume"
+            className="btn btn-outline-danger custom"
+            id="create_resume"
+          >
             CREATE RESUME NOW
           </Link>
         </div>
-        <div class="col call-image">
+        <div className="col-sm-6">
           <img src={logo} alt="" />
         </div>
       </div>

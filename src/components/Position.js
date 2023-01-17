@@ -1,47 +1,50 @@
-import  React from "react";
+import React from "react";
 import "./Position.scss";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
-function Position() {
-  const [formData, setFormData] = useState({
-    position_title: "",
-   
-  });
+function Position({ axiosInstance }) {
+  const navigate = useNavigate();
+
+  const [name, setName] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    e.target.position_title.value = "";
-    
+
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+
+    const formData = {
+      name: name,
+      user_id: userId,
+    };
+
+    axiosInstance
+      .post("/positions", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/languages");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
-    <div className="container-sm d-flex justify-content-center">
-      <form
-        className="row col-5 justify-content-center"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+    <div class="container-md text-center" id="experience_form">
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
-          <h1>Position Form</h1>
+          <h1>Desired Positions</h1>
         </div>
-        <div className="mb-3">
-          <label for="position_title" className="form-label">
-             Position Title
-          </label>
+        <div class="form-group">
+          <label for="position_title"> Position title</label>
           <input
             type="text"
-            className="form-control"
+            class="form-control"
             id="position_title"
-            value={formData.position_title}
-            onChange={(e) =>
-              setFormData({ ...formData, position_title: e.target.value })
-            }
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
-        
-        <div className="mb-3">
-          <button className="btn btn-primary">SUBMIT</button>
-        </div>
+        <button id="submit_button" type="submit" class="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
   );

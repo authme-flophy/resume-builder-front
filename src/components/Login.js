@@ -16,6 +16,14 @@ function Login({ user, setUser, axiosInstance, location }) {
     setError(null);
     e.preventDefault();
     console.log(formData);
+// =======
+//   const navigate = useNavigate();
+
+//   const handleLogin = (e) => {
+//     e.preventDefault();
+
+//     console.log("i have been clicked");
+// >>>>>>> steroids
 
     axiosInstance
       .post("/login", formData)

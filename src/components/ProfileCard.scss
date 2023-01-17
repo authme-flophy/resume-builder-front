@@ -1,0 +1,40 @@
+.profile_card {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+#fullnames {
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.img_div {
+  margin-bottom: 1rem;
+}
+
+#profile_img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.info_div {
+  
+}
+
+#position {
+  color: #F1554C;
+}
+
+@media (min-width:765px) {
+  .profile_card {
+    flex-wrap: nowrap;
+  }
+
+  .img_div {
+    margin-right: 3rem;
+  }
+}

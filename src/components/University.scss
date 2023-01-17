@@ -1,3 +1,17 @@
-div {
-  color: white;
+#education_form {
+  max-width: 500px;
+}
+
+#school_name, #course_name, #start_year, #end_year {
+  background-color: #16171d;
+  color: #F1554C;
+  border: 1px solid #F1554C;
+}
+
+label {
+  color: #F1554C;
+}
+
+#submit_button {
+  margin-top: .5rem;
 }

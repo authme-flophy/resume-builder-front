@@ -1,3 +1,14 @@
-div {
-  color: white;
+#experience_form {
+  max-width: 500px;
+}
+
+label {
+  margin: .5rem 0;
+  font-size: 1.2rem;
+}
+
+#job_title, #company_name, #summary {
+  background-color: #16171d;
+  color: #F1554C;
+  border: 1px solid #F1554C;
 }

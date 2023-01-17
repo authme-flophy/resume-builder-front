@@ -1,65 +1,88 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./University.scss";
 
-function University() {
+function University({ user, axiosInstance }) {
+  const navigate = useNavigate();
 
- const[ formData, setFormData] = useState({
-   school_name: "",
-   course_name: "",
-   start_year: "",
-   end_year: "",
+  const [name, setName] = useState();
+  const [courseName, setCourseName] = useState();
+  const [startYear, setStartYear] = useState();
+  const [endYear, setEndYear] = useState();
 
- });
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
- const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log(formData);
-  e.target.school_name.value = "";
-  e.target.course_name.value = "";
-  e.target.start_year.value = "";
-  e.target.end_year.value = "";
-};
+    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
 
-  return <div class= "container">
+    const formData = {
+      name: name,
+      course_name: courseName,
+      start_year: startYear,
+      end_year: endYear,
+      resume_id: resumeId,
+    };
 
-<form onSubmit={(e) => handleSubmit(e)}>
-  <div class="form-group">
-    <label for="school_name"> School Name</label>
-    <input type="text" class="form-control" id="school_name" onChange={(e) =>
-              setFormData({ ...formData, school_name: e.target.value })
-            } /> 
-  </div>
+    axiosInstance
+      .post("/schools", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/experience");
+      })
+      .catch((err) => console.error(err));
+  };
 
-  <div class="form-group">
-    <label for="course_name">Course Name</label>
-    <input type="text" class="form-control" id="course_name" onChange={(e) =>
-              setFormData({ ...formData, course_name: e.target.value })
-            }/>
-  </div>
+  return (
+    <div class="container-md text-center" id="education_form">
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="mb-3">
+          <h1>Education</h1>
+        </div>
+        <div class="form-group">
+          <label for="school_name"> School Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="school_name"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="course_name">Course Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="course_name"
+            onChange={(e) => setCourseName(e.target.value)}
+          />
+        </div>
 
-  <div class="form-group">
-    <label for="start_year">Start Year</label>
-    <input type="integer" class="form-control" id="start_year" onChange={(e) =>
-              setFormData({ ...formData, start_year: e.target.value })
-            }/>
-  </div>
-
-  <div class="form-group">
-    <label for="end_year">End Year</label>
-    <input type="integer" class="form-control" id="end_year"
-     onChange={(e) =>
-              setFormData({ ...formData, end_year: e.target.value })
-            } />
-  </div>
-
-
-  {/* <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div> */}
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-  </div>;
- 
+        <div className="row g-2">
+          <div class="col-md">
+            <label for="start_year">Start Year</label>
+            <input
+              type="number"
+              class="form-control"
+              id="start_year"
+              onChange={(e) => setStartYear(parseInt(e.target.value, 10))}
+            />
+          </div>
+          <div class="col-md">
+            <label for="end_year">End Year</label>
+            <input
+              type="number"
+              class="form-control"
+              id="end_year"
+              onChange={(e) => setEndYear(parseInt(e.target.value, 10))}
+            />
+          </div>
+        </div>
+        <button id="submit_button" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default University;

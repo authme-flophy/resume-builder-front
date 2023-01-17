@@ -1,9 +1,8 @@
-import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { Route, Routes } from "react-router";
 import Home from "./Home";
 import Login from "./Login";
-import Navbar from "./Navbar";
 import SignUp from "./SignUp";
-import "./App.css";
 import ResumeForm from "./ResumeForm";
 import Position from "./Position";
 import ProgrammingLanguage from "./ProgrammingLanguage";
@@ -24,8 +23,6 @@ function App() {
     baseURL: "http://localhost:4000",
     headers: { Authorization: localStorage.getItem("token") },
   });
-
-  console.log(axiosInstance);
 
   useEffect(() => {
     axiosInstance

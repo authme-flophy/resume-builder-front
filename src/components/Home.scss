@@ -1,30 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
 
 
-.container {
+.home {
+  height: 70vh;
   display: flex;
-  // align-items: center;
+  align-items: center;
+
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-
+.text-section {
+  text-align: center;
 }
 
 .call-text {
   font-family: 'Secular One', sans-serif;
   font-size: 4rem;
   color: #F1554C;
-  // width: 50%
-}
-
-.call-image {
-  // width: 50%;
-  /* height: 60vh; */
-  /* background-color: rgb(202, 131, 131); */
 }
 
 .custom {
@@ -46,11 +37,21 @@ img {
   height: auto;
 }
 
+#create_resume {
+  transform: scale(1.5);
+}
+
 @media (max-width: 576px) { 
-  .call-image {
-    width: 100%;
+  img {
+    margin-top: 2rem;
   }
   .call-text {
-    width: 100%;
+    font-size: 2.2rem;
+  }
+  .row {
+    align-items: center;
+  }
+  #create_resume {
+    transform: scale(1);
   }
  }

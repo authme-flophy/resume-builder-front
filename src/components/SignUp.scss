@@ -120,6 +120,24 @@ input[type="Submit"]:hover
     font-size: 20px;
     font-weight: bold;
 }
+#signup_form {
+  max-width: 800px;
+}
+
+#first_name, #second_name, #email, #username, #password, #image{
+  background-color: #16171d;
+  color: #F1554C;
+  border: 1px solid #F1554C;
+}
+
+#first_name:focus, #second_name:focus, #email:focus, #image:focus, #username:focus, #password:focus {
+  border: 1px solid #F1554C;
+}
+
+.auth_redirect {
+  margin-top: 1rem;
+  color: #fff;
+}
 
 .signup_link a:hover,
 .login_link a:hover

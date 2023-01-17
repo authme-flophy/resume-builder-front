@@ -1,55 +1,114 @@
 import React, { useState } from "react";
-import "./JobExperience.scss";
 import { useNavigate } from "react-router-dom";
+import "./JobExperience.scss";
 
-function JobExperience() {
-  const [jobTitle, setJobTitle] = useState('')
-  const [employerName, setEmployerName] = useState('')
-  const [errors, setErrors] = useState([])
-  const navigate = useNavigate()
+function JobExperience({ axiosInstance }) {
+  const navigate = useNavigate();
+
+  const [jobTitle, setJobTitle] = useState();
+  const [employer, setEmployer] = useState();
+  const [summary, setSummary] = useState();
+  const [startYear, setStartYear] = useState();
+  const [endYear, setEndYear] = useState();
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const experience = { jobTitle, employerName }
-    console.log(experience)
-    fetch('', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(experience)
-    })
-    .then(r => {
-      if(r.ok) {
-        r.json()
-        .then( r => {
-          console.log(r)
-          alert ('Details updated successfully')
-          navigate('/home') /* update root accordingly */
-        })
-      }
-      else {
-        r.json().then(err => {
-          setErrors(err.errors)
-          alert ('Errors')
-        })
-      }
-    })
-    setJobTitle('')
-    setEmployerName('')
-  }
+    e.preventDefault();
+
+    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
+    const formData = {
+      title: jobTitle,
+      company_name: employer,
+      summary: summary,
+      start_year: startYear,
+      end_year: endYear,
+      resume_id: resumeId,
+    };
+
+    axiosInstance
+      .post("/job_experiences", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/position");
+      })
+      .catch((err) => {
+        console.error(err);
+
+        setErrors(err.errors);
+      });
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Job Title: <br /> 
-        <input type="text" value={jobTitle} onChange={e => setJobTitle(e.target.value)} />
-      </label>
-      <label>
-        Employer Name: <br /> 
-        <input type="text" value={employerName} onChange={e => setEmployerName(e.target.value)} />
-      </label>
-      { errors ? errors.map(error => (<h3 style={{color: 'red', fontStyle: 'italic'}} key={error}>{error}</h3>)) : null }    
-    </form>
-  )
+    <div class="container-md text-center" id="experience_form">
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="mb-3">
+          <h1>Previous Experience</h1>
+        </div>
+        <div class="form-group">
+          <label for="job_title"> Job Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="job_title"
+            onChange={(e) => setJobTitle(e.target.value)}
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="company_name">Employer's Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="company_name"
+            onChange={(e) => setEmployer(e.target.value)}
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="summary">Summary of what you did</label>
+          <textarea
+            class="form-control"
+            id="summary"
+            rows="3"
+            onChange={(e) => setSummary(e.target.value)}
+          ></textarea>
+        </div>
+
+        <div className="row g-2">
+          <div class="col-md">
+            <label for="start_year">Start Year</label>
+            <input
+              type="number"
+              class="form-control"
+              id="start_year"
+              onChange={(e) => setStartYear(parseInt(e.target.value, 10))}
+            />
+          </div>
+          <div class="col-md">
+            <label for="end_year">End Year</label>
+            <input
+              type="number"
+              class="form-control"
+              id="end_year"
+              onChange={(e) => setEndYear(parseInt(e.target.value, 10))}
+            />
+          </div>
+        </div>
+        <button id="submit_button" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
+
+      {errors
+        ? errors.map((error) => (
+            <h3 style={{ color: "red", fontStyle: "italic" }} key={error}>
+              {error}
+            </h3>
+          ))
+        : null}
+    </div>
+  );
 }
 
 export default JobExperience;
