@@ -13,6 +13,8 @@ function Position({ axiosInstance }) {
 
     const userId = JSON.parse(localStorage.getItem("user")).id;
 
+    console.log(userId);
+
     const formData = {
       name: name,
       user_id: userId,

@@ -41,6 +41,7 @@ function ProgrammingLanguage({ axiosInstance }) {
     e.preventDefault();
 
     const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+    const username = JSON.parse(localStorage.getItem("user")).username;
 
     const formData = new FormData();
 
@@ -52,7 +53,7 @@ function ProgrammingLanguage({ axiosInstance }) {
       .post("/programming_languages", formData)
       .then((res) => {
         console.log(res);
-        navigate("/profile");
+        navigate(`/${username}`);
       })
       .catch((err) => console.error(err));
   };
