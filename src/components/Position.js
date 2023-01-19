@@ -40,6 +40,7 @@ function Position({ axiosInstance }) {
           <input
             type="text"
             class="form-control"
+            required
             id="position_title"
             onChange={(e) => setName(e.target.value)}
           />
