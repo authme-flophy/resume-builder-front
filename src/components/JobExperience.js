@@ -95,8 +95,8 @@ function JobExperience({ axiosInstance }) {
             />
           </div>
         </div>
-        <button id="submit_button" type="submit" class="btn btn-primary">
-          Submit
+        <button id="submit_button" type="submit" class="btn btn-primary" value='NEXT'>
+          NEXT
         </button>
       </form>
 

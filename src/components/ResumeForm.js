@@ -135,7 +135,7 @@ function ResumeForm({ axiosInstance }) {
         </div>
         <div className="mb-3">
           <button className="btn btn-primary" id="submit_button">
-            SUBMIT
+            NEXT
           </button>
         </div>
       </form>
