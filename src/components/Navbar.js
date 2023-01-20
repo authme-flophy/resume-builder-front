@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "./Login";
+// import Login from "./Login";
 import "./Navbar.scss";
 
 function Navbar({ user, setUser }) {
@@ -46,7 +46,7 @@ function Navbar({ user, setUser }) {
                 to="/"
                 onClick={(e) => setNavCollapsed(!navCollapsed)}
               >
-                &emsp; Home
+               Home
               </Link>
             </li>
           </ul>
@@ -65,7 +65,7 @@ function Navbar({ user, setUser }) {
                     Create Resume
                   </Link>
                 </li>
-                &emsp;
+                
                 <li className="nav-item">
                   <Link
                     id="logout"
@@ -77,7 +77,7 @@ function Navbar({ user, setUser }) {
                     Logout
                   </Link>
                 </li>
-                &emsp;
+                
                 <li className="nav-item">
                   <Link
                     to={`${user.username}`}
@@ -92,7 +92,7 @@ function Navbar({ user, setUser }) {
                       src={user.image_url}
                       alt="profile picture"
                     />
-                     &emsp; {user.username}
+                    {user.username}
                   </Link>
                 </li>
               </ul>
