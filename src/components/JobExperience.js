@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./JobExperience.scss";
 
-function JobExperience({ axiosInstance }) {
+function JobExperience({ axiosInstance, location }) {
   const navigate = useNavigate();
+
+  console.log(location);
 
   const [jobTitle, setJobTitle] = useState();
   const [employer, setEmployer] = useState();

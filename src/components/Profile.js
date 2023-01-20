@@ -4,7 +4,7 @@ import ProfileCard from "./ProfileCard";
 import LanguagesTags from "./LanguagesTags";
 import WorkExperienceCard from "./WorkExperienceCard";
 import EducationCard from "./EducationCard";
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 function Profile({ axiosInstance }) {
   const [user, setUser] = useState();
@@ -15,6 +15,10 @@ function Profile({ axiosInstance }) {
 
   const passedUsername = useParams();
   console.log(loggedInUser.id);
+
+  const location = useLocation();
+
+  console.log(location);
 
   useEffect(() => {
     axiosInstance
@@ -77,7 +81,9 @@ function Profile({ axiosInstance }) {
           <div className="edit_button">
             {user?.id === loggedInUser?.id ? (
               <button className="btn btn-primary">
+                {/* <Link to="/experience"> */}
                 <i class="bi bi-pencil-fill"></i>
+                {/* </Link> */}
               </button>
             ) : (
               ""
