@@ -78,7 +78,7 @@ function University({ user, axiosInstance }) {
           </div>
         </div>
         <button id="submit_button" type="submit" class="btn btn-primary">
-          Submit
+          NEXT
         </button>
       </form>
     </div>

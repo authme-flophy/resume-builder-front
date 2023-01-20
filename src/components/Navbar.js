@@ -46,7 +46,7 @@ function Navbar({ user, setUser }) {
                 to="/"
                 onClick={(e) => setNavCollapsed(!navCollapsed)}
               >
-                Home
+                &emsp; Home
               </Link>
             </li>
           </ul>
@@ -65,8 +65,9 @@ function Navbar({ user, setUser }) {
                     Create Resume
                   </Link>
                 </li>
+                &emsp;
                 <li className="nav-item">
-                  <a
+                  <Link
                     id="logout"
                     className="nav-link"
                     aria-current="page"
@@ -74,8 +75,9 @@ function Navbar({ user, setUser }) {
                     onClick={(e) => handleLogout()}
                   >
                     Logout
-                  </a>
+                  </Link>
                 </li>
+                &emsp;
                 <li className="nav-item">
                   <Link
                     to={`${user.username}`}
@@ -90,7 +92,7 @@ function Navbar({ user, setUser }) {
                       src={user.image_url}
                       alt="profile picture"
                     />
-                    {user.username}
+                     &emsp; {user.username}
                   </Link>
                 </li>
               </ul>

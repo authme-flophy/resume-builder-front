@@ -56,6 +56,7 @@ function ResumeForm({ axiosInstance }) {
             type="text"
             className="form-control"
             id="first_name"
+            required
             value={formData.first_name}
             onChange={(e) =>
               setFormData({ ...formData, first_name: e.target.value })
@@ -69,6 +70,7 @@ function ResumeForm({ axiosInstance }) {
           <input
             type="text"
             className="form-control"
+            required
             id="second_name"
             value={formData.second_name}
             onChange={(e) =>
@@ -84,6 +86,7 @@ function ResumeForm({ axiosInstance }) {
             type="email"
             className="form-control"
             id="email"
+            required
             value={formData.email}
             aria-describedby="emailHelp"
             onChange={(e) =>
@@ -135,7 +138,7 @@ function ResumeForm({ axiosInstance }) {
         </div>
         <div className="mb-3">
           <button className="btn btn-primary" id="submit_button">
-            SUBMIT
+            NEXT
           </button>
         </div>
       </form>

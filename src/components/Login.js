@@ -23,7 +23,11 @@ function Login({ user, setUser, axiosInstance, location }) {
         localStorage.setItem("loggedIn", JSON.stringify(true));
         location !== undefined ? navigate(location.pathname) : navigate("/");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err)
+        alert('Invalid Username or Password') /* Can be modified later when backend is modified */
+      }
+      );
   };
 
   return (

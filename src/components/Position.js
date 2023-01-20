@@ -40,12 +40,13 @@ function Position({ axiosInstance }) {
           <input
             type="text"
             class="form-control"
+            required
             id="position_title"
             onChange={(e) => setName(e.target.value)}
           />
         </div>
         <button id="submit_button" type="submit" class="btn btn-primary">
-          Submit
+          NEXT
         </button>
       </form>
     </div>

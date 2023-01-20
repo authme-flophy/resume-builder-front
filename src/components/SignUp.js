@@ -45,6 +45,7 @@ function SignUp({ user, setUser, axiosInstance }) {
             type="text"
             className="form-control"
             id="first_name"
+            required
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
@@ -54,6 +55,7 @@ function SignUp({ user, setUser, axiosInstance }) {
           </label>
           <input
             type="text"
+            required
             className="form-control"
             id="second_name"
             onChange={(e) => setSecondName(e.target.value)}
@@ -67,6 +69,7 @@ function SignUp({ user, setUser, axiosInstance }) {
             type="text"
             className="form-control"
             id="username"
+            required
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -78,6 +81,7 @@ function SignUp({ user, setUser, axiosInstance }) {
             type="email"
             className="form-control"
             id="email"
+            required
             aria-describedby="emailHelp"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -86,7 +90,7 @@ function SignUp({ user, setUser, axiosInstance }) {
           <label for="image" class="form-label">
             Default file input example
           </label>
-          <input className="form-control" type="file" id="image" />
+          <input className="form-control" type="file" id="image" required />
         </div>
         <div className="mb-3">
           <label for="password" className="form-label">
@@ -96,6 +100,7 @@ function SignUp({ user, setUser, axiosInstance }) {
             type="password"
             className="form-control"
             id="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
