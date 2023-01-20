@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./JobExperience.scss";
 
-function JobExperience({ axiosInstance, location }) {
+function JobExperience({ axiosInstance }) {
   const navigate = useNavigate();
 
-  console.log(location);
+  const location = useLocation();
 
   const [jobTitle, setJobTitle] = useState();
   const [employer, setEmployer] = useState();
@@ -17,28 +17,53 @@ function JobExperience({ axiosInstance, location }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+    if (location.state?.number == 1) {
+      const resumeIdUpdate = location.state?.resume_id;
 
-    const formData = {
-      title: jobTitle,
-      company_name: employer,
-      summary: summary,
-      start_year: startYear,
-      end_year: endYear,
-      resume_id: resumeId,
-    };
+      const formData = {
+        title: jobTitle,
+        company_name: employer,
+        summary: summary,
+        start_year: startYear,
+        end_year: endYear,
+        resume_id: resumeIdUpdate,
+      };
 
-    axiosInstance
-      .post("/job_experiences", formData)
-      .then((res) => {
-        console.log(res);
-        navigate("/position");
-      })
-      .catch((err) => {
-        console.error(err);
+      axiosInstance
+        .post("/job_experiences", formData)
+        .then((res) => {
+          console.log(res);
+          navigate(`/${location.state?.username}`);
+        })
+        .catch((err) => {
+          console.error(err);
 
-        setErrors(err.errors);
-      });
+          setErrors(err.errors);
+        });
+    } else {
+      const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
+      const formData = {
+        title: jobTitle,
+        company_name: employer,
+        summary: summary,
+        start_year: startYear,
+        end_year: endYear,
+        resume_id: resumeId,
+      };
+
+      axiosInstance
+        .post("/job_experiences", formData)
+        .then((res) => {
+          console.log(res);
+          navigate("/position");
+        })
+        .catch((err) => {
+          console.error(err);
+
+          setErrors(err.errors);
+        });
+    }
   };
 
   return (
@@ -97,7 +122,12 @@ function JobExperience({ axiosInstance, location }) {
             />
           </div>
         </div>
-        <button id="submit_button" type="submit" class="btn btn-primary" value='NEXT'>
+        <button
+          id="submit_button"
+          type="submit"
+          class="btn btn-primary"
+          value="NEXT"
+        >
           NEXT
         </button>
       </form>

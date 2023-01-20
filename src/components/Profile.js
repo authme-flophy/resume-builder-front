@@ -11,6 +11,7 @@ function Profile({ axiosInstance }) {
   const [languages, setLanguages] = useState();
   const [experiences, setExperiences] = useState();
   const [educations, setEducations] = useState();
+  const [description, setDescription] = useState();
   const [loggedInUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   const passedUsername = useParams();
@@ -24,7 +25,10 @@ function Profile({ axiosInstance }) {
     axiosInstance
       .get(`/${passedUsername.profile}`)
       .then((res) => {
+        console.log(res.data);
         setUser(res.data);
+        setDescription(res.data.resumes[0]?.description);
+        console.log(res.data.resumes[0]);
         setLanguages(res.data.programming_languages);
         setExperiences(res.data.job_experiences);
         setEducations(res.data.schools);
@@ -43,13 +47,13 @@ function Profile({ axiosInstance }) {
         )} */}
       </div>
       <div className="profile_links">
-        <a className="profile_link" href="http://github.com">
+        <a className="profile_link" href={user?.github}>
           <i class="bi bi-github"></i>
         </a>
-        <a className="profile_link" href="http://linkedin.com">
+        <a className="profile_link" href={user?.linkedin}>
           <i class="bi bi-linkedin"></i>
         </a>
-        <a className="profile_link" href="http://google.com">
+        <a className="profile_link" href={user?.portfolio}>
           <i class="bi bi-globe"></i>
         </a>
       </div>
@@ -58,13 +62,13 @@ function Profile({ axiosInstance }) {
           <i class="bi bi-code-slash header_icons"></i> &nbsp;
           <h1>Languages</h1>
           <div className="edit_button">
-            {user?.id === loggedInUser?.id ? (
+            {/* {user?.id === loggedInUser?.id ? (
               <button className="btn btn-primary">
                 <i class="bi bi-pencil-fill"></i>
               </button>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
         <ul className="languages">
@@ -81,9 +85,17 @@ function Profile({ axiosInstance }) {
           <div className="edit_button">
             {user?.id === loggedInUser?.id ? (
               <button className="btn btn-primary">
-                {/* <Link to="/experience"> */}
-                <i class="bi bi-pencil-fill"></i>
-                {/* </Link> */}
+                <Link
+                  className="profile_page_links"
+                  to="/experience"
+                  state={{
+                    number: 1,
+                    resume_id: JSON.parse(localStorage.getItem("resume_id")),
+                    username: user.username,
+                  }}
+                >
+                  <i class="bi bi-plus"></i>
+                </Link>
               </button>
             ) : (
               ""
@@ -102,7 +114,17 @@ function Profile({ axiosInstance }) {
           <div className="edit_button">
             {user?.id === loggedInUser?.id ? (
               <button className="btn btn-primary">
-                <i class="bi bi-pencil-fill"></i>
+                <Link
+                  className="profile_page_links"
+                  to="/education"
+                  state={{
+                    number: 1,
+                    resume_id: JSON.parse(localStorage.getItem("resume_id")),
+                    username: user.username,
+                  }}
+                >
+                  <i class="bi bi-plus"></i>
+                </Link>
               </button>
             ) : (
               ""

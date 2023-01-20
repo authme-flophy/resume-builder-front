@@ -13,6 +13,7 @@ function ResumeForm({ axiosInstance }) {
     linkedin: "",
     github: "",
     portfolio: "",
+    description: "",
   });
 
   useEffect(() => {
@@ -25,6 +26,10 @@ function ResumeForm({ axiosInstance }) {
           second_name: res.data.user.second_name,
           email: res.data.user.email,
           image_url: res.data.user.image_url,
+          linkedin: "",
+          github: "",
+          portfolio: "",
+          description: "",
         });
       })
       .catch((err) => console.error(err));
@@ -93,6 +98,20 @@ function ResumeForm({ axiosInstance }) {
               setFormData({ ...formData, email: e.target.value })
             }
           />
+        </div>
+
+        <div className="mb-3">
+          <label for="description" className="form-label">
+            Tell people about yourself
+          </label>
+          <textarea
+            class="form-control"
+            id="description"
+            rows="3"
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+          ></textarea>
         </div>
 
         <div className="mb-3">

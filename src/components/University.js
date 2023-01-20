@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./University.scss";
 
 function University({ user, axiosInstance }) {
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [name, setName] = useState();
   const [courseName, setCourseName] = useState();
@@ -13,23 +15,43 @@ function University({ user, axiosInstance }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+    if (location.state?.number == 1) {
+      const resumeIdUpdate = location.state?.resume_id;
 
-    const formData = {
-      name: name,
-      course_name: courseName,
-      start_year: startYear,
-      end_year: endYear,
-      resume_id: resumeId,
-    };
+      const formData = {
+        name: name,
+        course_name: courseName,
+        start_year: startYear,
+        end_year: endYear,
+        resume_id: resumeIdUpdate,
+      };
 
-    axiosInstance
-      .post("/schools", formData)
-      .then((res) => {
-        console.log(res);
-        navigate("/experience");
-      })
-      .catch((err) => console.error(err));
+      axiosInstance
+        .post("/schools", formData)
+        .then((res) => {
+          console.log(res);
+          navigate(`/${location.state?.username}`);
+        })
+        .catch((err) => console.error(err));
+    } else {
+      const resumeId = JSON.parse(localStorage.getItem("resume_id"));
+
+      const formData = {
+        name: name,
+        course_name: courseName,
+        start_year: startYear,
+        end_year: endYear,
+        resume_id: resumeId,
+      };
+
+      axiosInstance
+        .post("/schools", formData)
+        .then((res) => {
+          console.log(res);
+          navigate("/experience");
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
