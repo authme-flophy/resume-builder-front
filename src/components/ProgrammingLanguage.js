@@ -81,7 +81,7 @@ function ProgrammingLanguage({ axiosInstance }) {
           })}
         </div>
         <button id="submit_button" class="btn btn-primary" type="submit">
-          Submit
+          SUBMIT
         </button>
       </form>
     </div>
