@@ -58,7 +58,7 @@ function SignUp({ user, setUser, axiosInstance }) {
             required
             className="form-control"
             id="second_name"
-            onChange={(e) => setSecondName(e.target.value)}
+            onChange={(e) => setSecondName(e.target.value.toLowerCase())}
           />
         </div>
         <div className="mb-3">
