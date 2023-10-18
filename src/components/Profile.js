@@ -39,7 +39,7 @@ function Profile({ axiosInstance }) {
   return (
     <div className="container-sm profile" id="profile_page">
       <div className="profile_section">
-        <ProfileCard user={user} />
+        <ProfileCard user={user} description={description} />
         {/* {user?.id === loggedInUser?.id ? (
           <button className="btn btn-primary">edit</button>
         ) : (

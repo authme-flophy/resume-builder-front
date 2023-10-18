@@ -7,7 +7,7 @@ function Feed() {
   const [users, setUsers] = useState();
 
   const axiosInstance = axios.create({
-    baseURL: "https://resume-builder-production.up.railway.app/",
+    baseURL: "https://resume-builder-v7jb.onrender.com/",
     headers: { Authorization: localStorage.getItem("token") },
   });
 

@@ -24,14 +24,7 @@ function UserCard({ user }) {
           </time>
         </div>
         <div class="postcard__bar"></div>
-        <div class="postcard__preview-txt">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-          fugiat asperiores inventore beatae accusamus odit minima enim, commodi
-          quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti
-          tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci
-          illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim
-          quidem excepturi, illum quos!
-        </div>
+        <div class="postcard__preview-txt">{user.resumes[0]?.description}</div>
         <ul class="postcard__tagbox">
           {languages &&
             languages.map((language) => <LanguagesTags language={language} />)}
