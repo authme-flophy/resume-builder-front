@@ -20,7 +20,7 @@ function App() {
   const [user, setUser] = useState();
 
   const axiosInstance = axios.create({
-    baseURL: "https://resume-builder-v7jb.onrender.com/",
+    baseURL: "https://resume-builder-fhfn.onrender.com",
     headers: { Authorization: localStorage.getItem("token") },
   });
 
