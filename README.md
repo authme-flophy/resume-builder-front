@@ -41,12 +41,12 @@ To run this project locally, follow these steps:
 
 1. Clone the repository from GitHub:
    ```
-   git clone [repository_url]
+   git clone git@github.com:authme-flophy/resume-builder-front.git
    ```
 
 2. Navigate to the project's frontend directory:
    ```
-   cd frontend
+   cd resume-builder-front
    ```
 
 3. Install frontend dependencies:
